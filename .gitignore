@@ -182,3 +182,4 @@ cython_debug/
 
 /backend/service/
 /TestData
+/TestDataV2
