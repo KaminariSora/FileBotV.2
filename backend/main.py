@@ -7,18 +7,29 @@ async def route_intent(intent: dict):
     intent_type = intent.get("intent")
     if intent_type == "search_file":
         print(f"🧭 Routing to: {intent_type}")
-        filename = input("🔎 ใส่ชื่อไฟล์ที่ต้องการค้นหา (เช่น *.txt): ")
+
+        content = input("Content searching: ")
+        search_path = r"D:\Working\C_work\Coding\FileBotV.2\TestData"
         file_type = input("📁 ระบุประเภทไฟล์ (เช่น .pdf หรือเว้นไว้): ") or None
-        days = input("⏱ แก้ไขภายในกี่วัน (หรือเว้นไว้): ")
-        modified_within_days = int(days) if days else None
-        search_path = input("📂 โฟลเดอร์ที่ต้องการค้นหา (default = .): ") or "."
-        
+
         params = {
-            "filename": filename,
-            "file_type": file_type,
-            "modified_within_days": modified_within_days,
-            "search_path": search_path
+            "content": content,
+            "search_path": search_path,
+            "type": file_type
         }
+
+        # filename = input("🔎 ใส่ชื่อไฟล์ที่ต้องการค้นหา (เช่น *.txt): ")
+        # file_type = input("📁 ระบุประเภทไฟล์ (เช่น .pdf หรือเว้นไว้): ") or None
+        # days = input("⏱ แก้ไขภายในกี่วัน (หรือเว้นไว้): ")
+        # modified_within_days = int(days) if days else None
+        # search_path = input("📂 โฟลเดอร์ที่ต้องการค้นหา (default = .): ") or "."
+        
+        # params = {
+        #     "filename": filename,
+        #     "file_type": file_type,
+        #     "modified_within_days": modified_within_days,
+        #     "search_path": search_path
+        # }
         result = await mcp.call_tool("search_file_tool", params)
         return result
     else:
@@ -29,7 +40,7 @@ async def main():
     print("📦 FileBot CLI (MCP Simulation)")
     while True:
         message = input("👤 User: ")
-        if message.strip().lower() in ["exit", "quit"]:
+        if message.strip().lower() in ["exit", "quit", "q", "e"]:
             break
         intent = extract_intent(message)
         print("🧠 Intent:", intent)

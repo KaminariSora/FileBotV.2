@@ -6,19 +6,18 @@ mcp = FastMCP("filebot-agent")
 
 @mcp.tool()
 async def search_file_tool(
-    filename: str,
+    content: str,
     search_path: str,
-    type: str | None = None,
-    modified_within_days: int | None = None
+    type: str | None = None
 ):
+    if type is not None and "." not in type:
+        type = "." + type
+
     intent = {
-        "filename": filename,
-        "search_path": search_path
+        "content": content,
+        "search_path": search_path,
+        "type": type
     }
-    if type is not None:
-        intent["type"] = type
-    if modified_within_days is not None:
-        intent["modified_within_days"] = modified_within_days
     return search_file(intent)
 
 
