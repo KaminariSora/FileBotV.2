@@ -13,8 +13,8 @@ async def route_intent(intent: dict):
             return "cancel searching..."
 
         search_path = r"D:\Working\C_work\Coding\FileBotV.2\TestData"
-        # file_type = input("📁 ระบุประเภทไฟล์ (เช่น .pdf หรือเว้นไว้): ") or None
-        file_type = "txt"
+        file_type = input("📁 ระบุประเภทไฟล์ (เช่น .pdf หรือเว้นไว้): ") or None
+        # file_type = "pdf"
 
         params = {
             "content": content,
@@ -28,7 +28,6 @@ async def route_intent(intent: dict):
         else:
             return str(result)
     else:
-        print(intent)
         return "ขออภัย ฉันไม่เข้าใจคำสั่งนี้"
 
 async def main():
@@ -45,4 +44,4 @@ async def main():
         print(">>> Bot:", response)
 
 if __name__ == "__main__":
-    asyncio.run(main())  # ✅ รัน async main
+    asyncio.run(main())
